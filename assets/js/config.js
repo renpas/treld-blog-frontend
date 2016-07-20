@@ -1,7 +1,7 @@
 var config = {
 	username: 'treld',
 	password: 'treld',
-	staticPath: 'http://localhost:8081/treld-blog-frontend/'
+	staticPath: 'http://localhost:8080/treld-blog-frontend/'
 }
 
 var paths = {
