@@ -1,5 +1,6 @@
 window.onload = function () {
     loadPosts();
+   
 };
 
 function loadPosts() {
@@ -9,6 +10,11 @@ function loadPosts() {
             withCredentials: true
         }).then(function (arrPosts) {
             tableList.innerHTML += buildRow(arrPosts, template);
+             var table = $('#tableList').DataTable({
+             	"info":     false,
+             	"bLengthChange": false ,
+             	"pageLength": 10
+             });
         });
     });
 }
