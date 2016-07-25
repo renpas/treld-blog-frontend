@@ -5,7 +5,7 @@ window.onload = function () {
 function showPosts() {
     var main = document.getElementsByTagName("main")[0];
     ajax(paths.postTemplate).then(function (template) {
-        ajax('http://localhost:8080/api/post/page/1', {
+        ajax(config.urlServer.concat('/api/post/page/1'), {
             withCredentials: true
         }).then(function (arrPosts) {
             main.innerHTML += buildPost(arrPosts, template);
@@ -34,22 +34,4 @@ function buildTags(arrTags){
         strAllTags+='<a href="#">'.concat(tag).concat('</a>');
     });
     return strAllTags;
-}
-
-function milisecondsToDate(miliseconds) {
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth() + 1;
-    var yyyy = today.getFullYear();
-    return formatDate(dd, mm, yyyy);
-}
-
-function formatDate(dd, mm, yyyy) {
-    if (dd < 10) {
-        dd = '0' + dd
-    }
-    if (mm < 10) {
-        mm = '0' + mm
-    }
-    return dd + '/' + mm + '/' + yyyy;
 }
