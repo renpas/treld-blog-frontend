@@ -1,37 +1,42 @@
 window.onload = function () {
-    showPosts();
+    init();
 };
 
-function showPosts() {
-    var main = document.getElementsByTagName("main")[0];
-    ajax(paths.postTemplate).then(function (template) {
-        ajax('http://localhost:8080/api/post/page/1', {
-            withCredentials: true
-        }).then(function (arrPosts) {
-            main.innerHTML += buildPost(arrPosts, template);
+function init() {
+    var title = getPostParameter();
+    var page = getPageParameter();
+
+    if (title) {
+        findByUrl(title);
+    } else {
+        findAllPaginated(page).then(writePost);
+    }
+
+
+}
+
+function writePost(posts) {
+    getTemplate().then(function (template) {
+        var main = document.getElementsByTagName("main")[0];
+        var strAllPosts = "";
+        posts.forEach(function (post) {
+            var strPost = template;
+            strPost = strPost.replace('@body', '<p>'.concat(post.body).concat('</p>'));
+            strPost = strPost.replace('@publicationDate', milisecondsToDate(post.publicationDate));
+            strPost = strPost.replace('@title', post.title);
+            strPost = strPost.replace('@category', post.category);
+            strPost = strPost.replace('@author', post.author);
+            strPost = strPost.replace('@tags', buildTags(post.tags));
+            strAllPosts += strPost;
         });
+        main.innerHTML += strAllPosts;
     });
 }
 
-function buildPost(arrPosts, template) {
-    var strAllPosts = "";
-    arrPosts.forEach(function (objPost) {
-        var strPost = template;
-        strPost = strPost.replace('@body', '<p>'.concat(objPost.body).concat('</p>'));
-        strPost = strPost.replace('@publicationDate', milisecondsToDate(objPost.publicationDate));
-        strPost = strPost.replace('@title', objPost.title);
-        strPost = strPost.replace('@category', objPost.category);
-        strPost = strPost.replace('@author', objPost.author);
-        strPost = strPost.replace('@tags', buildTags(objPost.tags));
-        strAllPosts += strPost;
-    });
-    return strAllPosts;
-}
-
-function buildTags(arrTags){
-    var strAllTags="";
+function buildTags(arrTags) {
+    var strAllTags = "";
     arrTags.forEach(function (tag) {
-        strAllTags+='<a href="#">'.concat(tag).concat('</a>');
+        strAllTags += '<a href="#">'.concat(tag).concat('</a>');
     });
     return strAllTags;
 }
@@ -52,4 +57,23 @@ function formatDate(dd, mm, yyyy) {
         mm = '0' + mm
     }
     return dd + '/' + mm + '/' + yyyy;
+}
+
+function getPostParameter() {
+    var url = location.href;
+    var pattern = '(#\/[a-z0-9-]+$)';
+    var index = url.search(pattern);
+    if (index !== -1) {
+        return url.substring(index + 2);
+    }
+}
+
+function getPageParameter() {
+    var url = location.href;
+    var pattern = '#\/page\/[0-9]+$';
+    var index = url.search(pattern);
+    if (index !== -1){
+        return url.substring(index + 7);
+    }
+    return 1;
 }

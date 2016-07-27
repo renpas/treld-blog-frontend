@@ -1,7 +1,7 @@
 function ajax(url, options) {
     settings = {
         method: 'GET',
-        withCredentials: true,
+        withCredentials: false,
         contentType: 'application/json',
         body: ''
     }
