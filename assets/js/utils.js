@@ -26,3 +26,7 @@ function formatDate(dd, mm, yyyy) {
 function replaceAll(find, replace) {
     return this.replace(new RegExp(find, 'g'), replace);
 }
+
+var toType = function(obj) {
+  return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+}
