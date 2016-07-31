@@ -7,7 +7,7 @@ function init() {
     var page = getPageParameter();
 
     if (title) {
-        findByUrl(title);
+        findByUrl(title).then(function(post){writePost([post])});
     } else {
         findAllPaginated(page).then(writePost);
     }
@@ -23,7 +23,7 @@ function writePost(posts) {
             var strPost = template;
             strPost = strPost.replace('@body', '<p>'.concat(post.body).concat('</p>'));
             strPost = strPost.replace('@publicationDate', milisecondsToDate(post.publicationDate));
-            strPost = strPost.replace('@title', post.title);
+            strPost = strPost.replace('@title', '<a href=\"#/' + post.url + '\">' + post.title + "</a>");
             strPost = strPost.replace('@category', post.category);
             strPost = strPost.replace('@author', post.author);
             strPost = strPost.replace('@tags', buildTags(post.tags));
@@ -34,6 +34,8 @@ function writePost(posts) {
 }
 
 function buildTags(arrTags) {
+    if(arrTags == null)
+      return "SEM TAGS";
     var strAllTags = "";
     arrTags.forEach(function (tag) {
         strAllTags += '<a href="#">'.concat(tag).concat('</a>');
@@ -61,10 +63,11 @@ function formatDate(dd, mm, yyyy) {
 
 function getPostParameter() {
     var url = location.href;
-    var pattern = '(#\/[a-z0-9-]+$)';
+    var pattern = '(#\/post\/[a-z0-9-]+$)';
     var index = url.search(pattern);
+    //index = index.replace('\/post\/', '');
     if (index !== -1) {
-        return url.substring(index + 2);
+        return url.substring(index + 7);
     }
 }
 

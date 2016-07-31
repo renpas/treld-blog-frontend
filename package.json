@@ -1,0 +1,42 @@
+{
+  "name": "treld-blog-frontend",
+  "version": "1.0.0",
+  "description": "treld blog frontend",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp test",
+    "gulp": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/denisricci/treld-blog-frontend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-polyfill": "^6.9.1",
+    "browser-sync": "^2.9.8",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.0.2",
+    "gulp-clean": "^0.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-csslint": "^0.2.0",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-html-replace": "^1.5.4",
+    "gulp-imagemin": "^2.3.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-less": "^3.0.3",
+    "gulp-uglify": "^1.4.1",
+    "gulp-usemin": "^0.3.14",
+    "jasmine-core": "^2.4.1",
+    "jshint-stylish": "^2.0.1",
+    "karma": "^1.1.2",
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.1",
+    "karma-spec-reporter": "0.0.26"
+  },
+  "bugs": {
+    "url": "https://github.com/denisricci/treld-blog-frontend/issues"
+  },
+  "homepage": "https://github.com/denisricci/treld-blog-frontend#readme"
+}
