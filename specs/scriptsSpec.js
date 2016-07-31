@@ -67,4 +67,8 @@ describe("Scripts", function(){
 
   });
 
+  it('should fail', function(){
+    expect(1).toEqual('3');
+  });
+
 });
