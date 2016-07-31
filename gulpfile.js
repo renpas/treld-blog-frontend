@@ -82,5 +82,5 @@ gulp.task('test', function(done){
 
 gulp.task('default', ['copy'], function(){
   console.info('i\'m the default bitch');
-  gulp.start('build-img', 'usemin');
+  gulp.start('build-img', 'usemin', 'test');
 });
